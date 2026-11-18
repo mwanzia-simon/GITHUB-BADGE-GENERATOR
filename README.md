@@ -23,5 +23,3 @@ A simple backend project built with **Node.js** and **Express** that generates d
 ## Author
 
 **Simon Makau**
-
-GitHub: [@mwanzia-simon](https://github.com/mwanzia-simon)
