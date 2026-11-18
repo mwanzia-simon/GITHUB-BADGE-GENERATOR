@@ -18,7 +18,7 @@ A simple backend project built with **Node.js** and **Express** that generates d
 
 ## Project Status
 
-🚧 Currently under development.
+ Currently under development.
 
 ## Author
 
