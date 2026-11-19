@@ -1,0 +1,4 @@
+function generateBage(label,message){
+
+
+}
