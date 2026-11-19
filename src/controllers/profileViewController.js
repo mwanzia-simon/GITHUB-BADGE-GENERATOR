@@ -5,7 +5,7 @@ export const trackProfileViews = async (req, res) => {
     const { username } = req.params;
 
     const result = await ProfileViews.findOneAndUpdate(
-      { username: username },
+      { username },
       { $inc: { views: 1 } },
       { upsert: true, new: true },
     );
