@@ -8,7 +8,7 @@ const profileViewsSchema = mongoose.Schema({
   },
   views: {
     type: Number,
-    require: true,
+    required: true,
     default: 0,
   },
 });
