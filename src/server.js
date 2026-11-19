@@ -1,5 +1,5 @@
 import express from "express";
-import path from "path"
+import path from "path";
 import { fileURLToPath } from "url";
 import "dotenv/config";
 import { connectDB } from "./config/db.js";
@@ -7,8 +7,8 @@ import statsRouter from "./routes/statsRouter.js";
 import badgeRouter from "./routes/badgeRouter.js";
 
 const app = express();
+app.set("etag", false);
 const PORT = process.env.PORT || 5500;
-
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
