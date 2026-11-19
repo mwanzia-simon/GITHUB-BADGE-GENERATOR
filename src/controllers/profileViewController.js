@@ -10,7 +10,7 @@ export const trackProfileViews = async (req, res) => {
       { upsert: true, new: true },
     );
 
-    return res.status(200).json({ success: true, message: result.views });
+    return res.status(200).json({ success: true, views: result.views });
   } catch (error) {
     res
       .status(500)
