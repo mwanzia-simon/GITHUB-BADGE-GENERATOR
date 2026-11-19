@@ -6,7 +6,7 @@ export function generateBadge(label, message) {
      height="32"
      viewBox="0 0 210 32"
      role="img"
-     aria-label="Profile views: 1250">
+     aria-label="${label}: ${message}">
 
   <defs>
     <linearGradient id="blue" x1="0" y1="0" x2="0" y2="1">
