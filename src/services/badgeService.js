@@ -20,6 +20,8 @@ export function generateBadge(label, message, color) {
   const safeLabel = escapeXml(label);
   const safeMessage = escapeXml(message);
 
+  const selectedColor = colors[color] || colors.blue;
+
   const svg_string = `
     
 <svg xmlns="http://www.w3.org/2000/svg"
@@ -31,8 +33,8 @@ export function generateBadge(label, message, color) {
 
   <defs>
     <linearGradient id="blue" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#218bff"/>
-      <stop offset="100%" stop-color="#0969da"/>
+      <stop offset="0%" stop-color="${selectedColor}"/>
+      <stop offset="100%" stop-color="${selectedColor}"/>
     </linearGradient>
   </defs>
 
