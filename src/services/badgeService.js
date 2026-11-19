@@ -21,6 +21,9 @@ export function generateBadge(label, message, color,style) {
   const safeMessage = escapeXml(message);
 
   const selectedColor = colors[color] || colors.blue;
+  const selectedStyle = ["flat", "gradient"].includes(style)
+    ? style
+    : "gradient";
 
   const svg_string = `
     
