@@ -1,637 +1,668 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Generate customizable GitHub profile badges and track profile views using the GitHub Badge Generator API.">
-  <title>GitHub Badge Generator | API Documentation</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Generate customizable GitHub profile badges and track profile views using the GitHub Badge Generator API."
+    />
+    <link rel="icon" type="image/svg+xml" href="./assets/favicon.png" />
 
-  <style>
-    :root {
-      --bg: #0b1120;
-      --surface: #111b2e;
-      --surface-light: #18243a;
-      --border: #26344d;
-      --text: #e6edf7;
-      --muted: #94a3b8;
-      --blue: #3b82f6;
-      --green: #22c55e;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.7;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    code, pre {
-      font-family: Consolas, Monaco, monospace;
-    }
-
-    .container {
-      width: min(1100px, 90%);
-      margin: auto;
-    }
-
-    /* Navigation */
-
-    header {
-      border-bottom: 1px solid var(--border);
-      background: rgba(11, 17, 32, 0.92);
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      backdrop-filter: blur(12px);
-    }
-
-    nav {
-      min-height: 72px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-    }
-
-    .logo {
-      font-size: 19px;
-      font-weight: 750;
-      letter-spacing: -0.5px;
-    }
-
-    .logo span {
-      color: var(--blue);
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 25px;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    .nav-links a:hover {
-      color: white;
-    }
-
-    /* Hero */
-
-    .hero {
-      padding: 95px 0 75px;
-      text-align: center;
-    }
-
-    .status {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 13px;
-      border: 1px solid rgba(34, 197, 94, 0.25);
-      background: rgba(34, 197, 94, 0.08);
-      color: #4ade80;
-      border-radius: 30px;
-      font-size: 12px;
-      margin-bottom: 25px;
-    }
-
-    .status-dot {
-      width: 7px;
-      height: 7px;
-      background: var(--green);
-      border-radius: 50%;
-    }
-
-    .hero h1 {
-      font-size: clamp(36px, 6vw, 58px);
-      line-height: 1.15;
-      letter-spacing: -2px;
-      max-width: 800px;
-      margin: 0 auto 20px;
-    }
-
-    .hero h1 span {
-      color: var(--blue);
-    }
-
-    .hero p {
-      color: var(--muted);
-      max-width: 650px;
-      margin: auto;
-      font-size: 16px;
-    }
-
-    .base-url {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      margin-top: 32px;
-      padding: 12px 18px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      color: #93c5fd;
-      font-size: 13px;
-      max-width: 100%;
-      overflow-wrap: anywhere;
-    }
-
-    /* Sections */
-
-    section {
-      padding: 65px 0;
-      border-top: 1px solid var(--border);
-    }
-
-    .section-heading {
-      margin-bottom: 30px;
-    }
-
-    .section-heading h2 {
-      font-size: 27px;
-      margin-bottom: 7px;
-    }
-
-    .section-heading p {
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    /* Endpoint cards */
-
-    .endpoint-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
-    }
-
-    .endpoint-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 24px;
-    }
-
-    .method {
-      display: inline-block;
-      padding: 3px 9px;
-      background: rgba(34, 197, 94, 0.12);
-      color: #4ade80;
-      border-radius: 5px;
-      font-size: 11px;
-      font-weight: 700;
-      margin-bottom: 15px;
-    }
-
-    .endpoint-card h3 {
-      font-size: 17px;
-      margin-bottom: 10px;
-      overflow-wrap: anywhere;
-    }
-
-    .endpoint-card p {
-      color: var(--muted);
-      font-size: 13px;
-      margin-bottom: 18px;
-    }
-
-    .endpoint-url {
-      display: block;
-      padding: 12px;
-      background: #0b1120;
-      border-radius: 7px;
-      color: #93c5fd;
-      font-size: 12px;
-      overflow-wrap: anywhere;
-    }
-
-    /* Code blocks */
-
-    .code-block {
-      background: #080e1b;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      overflow: hidden;
-      margin-top: 15px;
-    }
-
-    .code-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 15px;
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    .copy-btn {
-      background: transparent;
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 5px 10px;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 11px;
-    }
-
-    .copy-btn:hover {
-      border-color: var(--blue);
-      color: #93c5fd;
-    }
-
-    pre {
-      padding: 18px;
-      font-size: 12px;
-      color: #bfdbfe;
-      overflow-x: auto;
-      white-space: pre-wrap;
-      overflow-wrap: anywhere;
-    }
-
-    /* Parameters */
-
-    .table-wrapper {
-      overflow-x: auto;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-      min-width: 500px;
-    }
-
-    th, td {
-      padding: 14px 17px;
-      text-align: left;
-      border-bottom: 1px solid var(--border);
-    }
-
-    th {
-      background: var(--surface);
-      color: var(--muted);
-      font-weight: 600;
-    }
-
-    td {
-      color: #cbd5e1;
-    }
-
-    td code {
-      color: #93c5fd;
-    }
-
-    tr:last-child td {
-      border-bottom: none;
-    }
-
-    /* Badge preview */
-
-    .preview-box {
-      padding: 30px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      text-align: center;
-      margin-top: 20px;
-    }
-
-    .preview-box img {
-      max-width: 100%;
-      height: auto;
-    }
-
-    /* Footer */
-
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 30px 0;
-      text-align: center;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    footer a {
-      color: #93c5fd;
-    }
-
-    @media (max-width: 700px) {
-      .nav-links {
-        gap: 12px;
-        font-size: 12px;
+    <title>GitHub Badge Generator | API Documentation</title>
+    <style>
+      :root {
+        --bg: #0b1120;
+        --surface: #111b2e;
+        --surface-light: #18243a;
+        --border: #26344d;
+        --text: #e6edf7;
+        --muted: #94a3b8;
+        --blue: #3b82f6;
+        --green: #22c55e;
       }
 
-      .endpoint-grid {
-        grid-template-columns: 1fr;
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
       }
 
-      .hero {
-        padding: 70px 0 55px;
+      html {
+        scroll-behavior: smooth;
       }
 
-      .hero h1 {
-        letter-spacing: -1px;
+      body {
+        font-family:
+          Inter,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.7;
       }
 
-      section {
-        padding: 45px 0;
+      a {
+        color: inherit;
+        text-decoration: none;
       }
-    }
 
-    @media (max-width: 430px) {
-      .nav-links a:nth-child(2) {
-        display: none;
+      code,
+      pre {
+        font-family: Consolas, Monaco, monospace;
+      }
+
+      .container {
+        width: min(1100px, 90%);
+        margin: auto;
+      }
+
+      /* Navigation */
+
+      header {
+        border-bottom: 1px solid var(--border);
+        background: rgba(11, 17, 32, 0.92);
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        backdrop-filter: blur(12px);
+      }
+
+      nav {
+        min-height: 72px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
       }
 
       .logo {
+        font-size: 19px;
+        font-weight: 750;
+        letter-spacing: -0.5px;
+      }
+
+      .logo span {
+        color: var(--blue);
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 25px;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .nav-links a:hover {
+        color: white;
+      }
+
+      /* Hero */
+
+      .hero {
+        padding: 95px 0 75px;
+        text-align: center;
+      }
+
+      .status {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 13px;
+        border: 1px solid rgba(34, 197, 94, 0.25);
+        background: rgba(34, 197, 94, 0.08);
+        color: #4ade80;
+        border-radius: 30px;
+        font-size: 12px;
+        margin-bottom: 25px;
+      }
+
+      .status-dot {
+        width: 7px;
+        height: 7px;
+        background: var(--green);
+        border-radius: 50%;
+      }
+
+      .hero h1 {
+        font-size: clamp(36px, 6vw, 58px);
+        line-height: 1.15;
+        letter-spacing: -2px;
+        max-width: 800px;
+        margin: 0 auto 20px;
+      }
+
+      .hero h1 span {
+        color: var(--blue);
+      }
+
+      .hero p {
+        color: var(--muted);
+        max-width: 650px;
+        margin: auto;
         font-size: 16px;
       }
-    }
-  </style>
-</head>
 
-<body>
+      .base-url {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        margin-top: 32px;
+        padding: 12px 18px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        color: #93c5fd;
+        font-size: 13px;
+        max-width: 100%;
+        overflow-wrap: anywhere;
+      }
 
-  <!-- Navigation -->
-  <header>
-    <div class="container">
-      <nav>
-        <a href="#" class="logo">GitHub<span>Badge</span></a>
+      /* Sections */
 
-        <div class="nav-links">
-          <a href="#endpoints">Endpoints</a>
-          <a href="#customization">Customization</a>
-          <a href="#integration">Integration</a>
-          <a href="https://github.com/mwanzia-simon/GITHUB-BADGE-GENERATOR"
-             target="_blank" rel="noopener noreferrer">GitHub ↗</a>
-        </div>
-      </nav>
-    </div>
-  </header>
+      section {
+        padding: 65px 0;
+        border-top: 1px solid var(--border);
+      }
 
-  <main>
+      .section-heading {
+        margin-bottom: 30px;
+      }
 
-    <!-- Hero -->
-    <div class="container">
-      <section class="hero" style="border: none;">
-        <div class="status">
-          <span class="status-dot"></span>
-          API is online
-        </div>
+      .section-heading h2 {
+        font-size: 27px;
+        margin-bottom: 7px;
+      }
 
-        <h1>
-          Dynamic GitHub <span>Badges</span>
-        </h1>
+      .section-heading p {
+        color: var(--muted);
+        font-size: 14px;
+      }
 
-        <p>
-          Generate customizable SVG badges and track GitHub profile views
-          using a simple, developer-friendly API.
-          Integrate dynamic profile statistics into your GitHub README in seconds.
-        </p>
+      /* Endpoint cards */
 
-        <div class="base-url" id="baseUrl">
-          <span>BASE URL</span>
-          <strong id="baseUrlText"></strong>
+      .endpoint-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+
+      .endpoint-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 24px;
+      }
+
+      .method {
+        display: inline-block;
+        padding: 3px 9px;
+        background: rgba(34, 197, 94, 0.12);
+        color: #4ade80;
+        border-radius: 5px;
+        font-size: 11px;
+        font-weight: 700;
+        margin-bottom: 15px;
+      }
+
+      .endpoint-card h3 {
+        font-size: 17px;
+        margin-bottom: 10px;
+        overflow-wrap: anywhere;
+      }
+
+      .endpoint-card p {
+        color: var(--muted);
+        font-size: 13px;
+        margin-bottom: 18px;
+      }
+
+      .endpoint-url {
+        display: block;
+        padding: 12px;
+        background: #0b1120;
+        border-radius: 7px;
+        color: #93c5fd;
+        font-size: 12px;
+        overflow-wrap: anywhere;
+      }
+
+      /* Code blocks */
+
+      .code-block {
+        background: #080e1b;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        overflow: hidden;
+        margin-top: 15px;
+      }
+
+      .code-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 15px;
+        background: var(--surface);
+        border-bottom: 1px solid var(--border);
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      .copy-btn {
+        background: transparent;
+        border: 1px solid var(--border);
+        color: var(--text);
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 11px;
+      }
+
+      .copy-btn:hover {
+        border-color: var(--blue);
+        color: #93c5fd;
+      }
+
+      pre {
+        padding: 18px;
+        font-size: 12px;
+        color: #bfdbfe;
+        overflow-x: auto;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+      }
+
+      /* Parameters */
+
+      .table-wrapper {
+        overflow-x: auto;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+        min-width: 500px;
+      }
+
+      th,
+      td {
+        padding: 14px 17px;
+        text-align: left;
+        border-bottom: 1px solid var(--border);
+      }
+
+      th {
+        background: var(--surface);
+        color: var(--muted);
+        font-weight: 600;
+      }
+
+      td {
+        color: #cbd5e1;
+      }
+
+      td code {
+        color: #93c5fd;
+      }
+
+      tr:last-child td {
+        border-bottom: none;
+      }
+
+      /* Badge preview */
+
+      .preview-box {
+        padding: 30px;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      .preview-box img {
+        max-width: 100%;
+        height: auto;
+      }
+
+      /* Footer */
+
+      footer {
+        border-top: 1px solid var(--border);
+        padding: 30px 0;
+        text-align: center;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      footer a {
+        color: #93c5fd;
+      }
+
+      @media (max-width: 700px) {
+        .nav-links {
+          gap: 12px;
+          font-size: 12px;
+        }
+
+        .endpoint-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .hero {
+          padding: 70px 0 55px;
+        }
+
+        .hero h1 {
+          letter-spacing: -1px;
+        }
+
+        section {
+          padding: 45px 0;
+        }
+      }
+
+      @media (max-width: 430px) {
+        .nav-links a:nth-child(2) {
+          display: none;
+        }
+
+        .logo {
+          font-size: 16px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Navigation -->
+    <header>
+      <div class="container">
+        <nav>
+          <a href="#" class="logo">GitHub<span>Badge</span></a>
+
+          <div class="nav-links">
+            <a href="#endpoints">Endpoints</a>
+            <a href="#customization">Customization</a>
+            <a href="#integration">Integration</a>
+            <a
+              href="https://github.com/mwanzia-simon/GITHUB-BADGE-GENERATOR"
+              target="_blank"
+              rel="noopener noreferrer"
+              >GitHub ↗</a
+            >
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <!-- Hero -->
+      <div class="container">
+        <section class="hero" style="border: none">
+          <div class="status">
+            <span class="status-dot"></span>
+            API is online
+          </div>
+
+          <h1>Dynamic GitHub <span>Badges</span></h1>
+
+          <p>
+            Generate customizable SVG badges and track GitHub profile views
+            using a simple, developer-friendly API. Integrate dynamic profile
+            statistics into your GitHub README in seconds.
+          </p>
+
+          <div class="base-url" id="baseUrl">
+            <span>BASE URL</span>
+            <strong id="baseUrlText"></strong>
+          </div>
+        </section>
+      </div>
+
+      <!-- Endpoints -->
+      <section id="endpoints">
+        <div class="container">
+          <div class="section-heading">
+            <h2>API Endpoints</h2>
+            <p>
+              Two simple endpoints to generate badges and retrieve profile
+              statistics.
+            </p>
+          </div>
+
+          <div class="endpoint-grid">
+            <div class="endpoint-card">
+              <span class="method">GET</span>
+              <h3>/api/badge/:username</h3>
+              <p>
+                Generates a customizable SVG badge for a GitHub username. Every
+                request increments the profile view counter and returns the
+                badge as an SVG image.
+              </p>
+              <code class="endpoint-url">/api/badge/YOUR_GITHUB_USERNAME</code>
+            </div>
+
+            <div class="endpoint-card">
+              <span class="method">GET</span>
+              <h3>/api/stats/:username</h3>
+              <p>
+                Retrieves the current profile view statistics in JSON format.
+                This endpoint also increments the counter on each request.
+              </p>
+              <code class="endpoint-url">/api/stats/YOUR_GITHUB_USERNAME</code>
+            </div>
+          </div>
         </div>
       </section>
-    </div>
 
-    <!-- Endpoints -->
-    <section id="endpoints">
-      <div class="container">
-        <div class="section-heading">
-          <h2>API Endpoints</h2>
-          <p>Two simple endpoints to generate badges and retrieve profile statistics.</p>
-        </div>
+      <!-- Customization -->
+      <section id="customization">
+        <div class="container">
+          <div class="section-heading">
+            <h2>Customize Your Badge</h2>
+            <p>Use query parameters to personalize your badge.</p>
+          </div>
 
-        <div class="endpoint-grid">
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>Parameter</th>
+                  <th>Description</th>
+                  <th>Available values</th>
+                  <th>Default</th>
+                </tr>
+              </thead>
 
-          <div class="endpoint-card">
-            <span class="method">GET</span>
-            <h3>/api/badge/:username</h3>
-            <p>
-              Generates a customizable SVG badge for a GitHub username.
-              Every request increments the profile view counter and returns
-              the badge as an SVG image.
+              <tbody>
+                <tr>
+                  <td><code>label</code></td>
+                  <td>Text displayed on the left side</td>
+                  <td>Any text</td>
+                  <td>PROFILE VIEWS</td>
+                </tr>
+
+                <tr>
+                  <td><code>color</code></td>
+                  <td>Badge counter color</td>
+                  <td>blue, green, red, orange, purple, gray</td>
+                  <td>blue</td>
+                </tr>
+
+                <tr>
+                  <td><code>style</code></td>
+                  <td>Badge appearance</td>
+                  <td>flat, gradient</td>
+                  <td>gradient</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="section-heading" style="margin-top: 35px">
+            <h2>Example Requests</h2>
+            <p>Try different combinations of parameters.</p>
+          </div>
+
+          <div class="code-block">
+            <div class="code-header">
+              <span>Green badge</span>
+              <button class="copy-btn" onclick="copyText(this)">Copy</button>
+            </div>
+            <pre class="copy-content">
+/api/badge/YOUR_GITHUB_USERNAME?color=green&style=flat</pre
+            >
+          </div>
+
+          <div class="code-block">
+            <div class="code-header">
+              <span>Purple badge</span>
+              <button class="copy-btn" onclick="copyText(this)">Copy</button>
+            </div>
+            <pre class="copy-content">
+/api/badge/YOUR_GITHUB_USERNAME?color=purple&style=gradient</pre
+            >
+          </div>
+
+          <div class="code-block">
+            <div class="code-header">
+              <span>Custom label</span>
+              <button class="copy-btn" onclick="copyText(this)">Copy</button>
+            </div>
+            <pre class="copy-content">
+/api/badge/YOUR_GITHUB_USERNAME?label=VISITORS&color=blue</pre
+            >
+          </div>
+
+          <div class="preview-box">
+            <p
+              style="color: var(--muted); margin-bottom: 15px; font-size: 13px"
+            >
+              Example badge preview
             </p>
-            <code class="endpoint-url">/api/badge/YOUR_GITHUB_USERNAME</code>
+            <img id="badgePreview" alt="Example profile views badge" />
+          </div>
+        </div>
+      </section>
+
+      <!-- Integration -->
+      <section id="integration">
+        <div class="container">
+          <div class="section-heading">
+            <h2>GitHub README Integration</h2>
+            <p>Add your badge to your GitHub profile README using Markdown.</p>
           </div>
 
-          <div class="endpoint-card">
-            <span class="method">GET</span>
-            <h3>/api/stats/:username</h3>
-            <p>
-              Retrieves the current profile view statistics in JSON format.
-              This endpoint also increments the counter on each request.
-            </p>
-            <code class="endpoint-url">/api/stats/YOUR_GITHUB_USERNAME</code>
+          <div class="code-block">
+            <div class="code-header">
+              <span>Markdown</span>
+              <button class="copy-btn" onclick="copyText(this)">Copy</button>
+            </div>
+            <pre class="copy-content">
+![Profile Views](https://github-badge-generator.onrender.com/api/badge/YOUR_GITHUB_USERNAME)</pre
+            >
           </div>
 
-        </div>
-      </div>
-    </section>
-
-    <!-- Customization -->
-    <section id="customization">
-      <div class="container">
-        <div class="section-heading">
-          <h2>Customize Your Badge</h2>
-          <p>Use query parameters to personalize your badge.</p>
-        </div>
-
-        <div class="table-wrapper">
-          <table>
-            <thead>
-              <tr>
-                <th>Parameter</th>
-                <th>Description</th>
-                <th>Available values</th>
-                <th>Default</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <tr>
-                <td><code>label</code></td>
-                <td>Text displayed on the left side</td>
-                <td>Any text</td>
-                <td>PROFILE VIEWS</td>
-              </tr>
-
-              <tr>
-                <td><code>color</code></td>
-                <td>Badge counter color</td>
-                <td>blue, green, red, orange, purple, gray</td>
-                <td>blue</td>
-              </tr>
-
-              <tr>
-                <td><code>style</code></td>
-                <td>Badge appearance</td>
-                <td>flat, gradient</td>
-                <td>gradient</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div class="section-heading" style="margin-top: 35px;">
-          <h2>Example Requests</h2>
-          <p>Try different combinations of parameters.</p>
-        </div>
-
-        <div class="code-block">
-          <div class="code-header">
-            <span>Green badge</span>
-            <button class="copy-btn" onclick="copyText(this)">Copy</button>
+          <div class="code-block">
+            <div class="code-header">
+              <span>HTML</span>
+              <button class="copy-btn" onclick="copyText(this)">Copy</button>
+            </div>
+            <pre class="copy-content">
+&lt;img src="https://github-badge-generator.onrender.com/api/badge/YOUR_GITHUB_USERNAME" alt="Profile Views"&gt;</pre
+            >
           </div>
-          <pre class="copy-content">/api/badge/YOUR_GITHUB_USERNAME?color=green&style=flat</pre>
-        </div>
 
-        <div class="code-block">
-          <div class="code-header">
-            <span>Purple badge</span>
-            <button class="copy-btn" onclick="copyText(this)">Copy</button>
-          </div>
-          <pre class="copy-content">/api/badge/YOUR_GITHUB_USERNAME?color=purple&style=gradient</pre>
-        </div>
-
-        <div class="code-block">
-          <div class="code-header">
-            <span>Custom label</span>
-            <button class="copy-btn" onclick="copyText(this)">Copy</button>
-          </div>
-          <pre class="copy-content">/api/badge/YOUR_GITHUB_USERNAME?label=VISITORS&color=blue</pre>
-        </div>
-
-        <div class="preview-box">
-          <p style="color: var(--muted); margin-bottom: 15px; font-size: 13px;">
-            Example badge preview
+          <p style="color: var(--muted); font-size: 13px; margin-top: 18px">
+            Replace YOUR_GITHUB_USERNAME with your GitHub username.
           </p>
-          <img id="badgePreview" alt="Example profile views badge">
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- Integration -->
-    <section id="integration">
+      <!-- Getting Started -->
+      <section id="getting-started">
+        <div class="container">
+          <div class="section-heading">
+            <h2>Getting Started</h2>
+            <p>Start generating your first badge with a single request.</p>
+          </div>
+
+          <div class="code-block">
+            <div class="code-header">
+              <span>Example request</span>
+              <button class="copy-btn" onclick="copyText(this)">Copy</button>
+            </div>
+            <pre class="copy-content">GET /api/badge/YOUR_GITHUB_USERNAME</pre>
+          </div>
+
+          <p style="color: var(--muted); font-size: 13px; margin-top: 18px">
+            The API automatically creates a profile record if one does not
+            already exist, increments its view count, and returns an SVG badge.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
       <div class="container">
-        <div class="section-heading">
-          <h2>GitHub README Integration</h2>
-          <p>Add your badge to your GitHub profile README using Markdown.</p>
-        </div>
+        <p>
+          Built by
+          <a
+            href="https://github.com/mwanzia-simon"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Simon Makau</a
+          >
+          ·
+          <a
+            href="https://github.com/mwanzia-simon/GITHUB-BADGE-GENERATOR"
+            target="_blank"
+            rel="noopener noreferrer"
+            >View source code on GitHub</a
+          >
+        </p>
 
-        <div class="code-block">
-          <div class="code-header">
-            <span>Markdown</span>
-            <button class="copy-btn" onclick="copyText(this)">Copy</button>
-          </div>
-          <pre class="copy-content">![Profile Views](https://github-badge-generator.onrender.com/api/badge/YOUR_GITHUB_USERNAME)</pre>
-        </div>
-
-        <div class="code-block">
-          <div class="code-header">
-            <span>HTML</span>
-            <button class="copy-btn" onclick="copyText(this)">Copy</button>
-          </div>
-          <pre class="copy-content">&lt;img src="https://github-badge-generator.onrender.com/api/badge/YOUR_GITHUB_USERNAME" alt="Profile Views"&gt;</pre>
-        </div>
-
-        <p style="color: var(--muted); font-size: 13px; margin-top: 18px;">
-          Replace YOUR_GITHUB_USERNAME with your GitHub username.
+        <p style="margin-top: 7px">
+          GitHub Badge Generator · API Documentation
         </p>
       </div>
-    </section>
+    </footer>
 
-    <!-- Getting Started -->
-    <section id="getting-started">
-      <div class="container">
-        <div class="section-heading">
-          <h2>Getting Started</h2>
-          <p>Start generating your first badge with a single request.</p>
-        </div>
+    <script>
+      // Automatically detect the deployed API's base URL
+      const baseUrl = window.location.origin;
 
-        <div class="code-block">
-          <div class="code-header">
-            <span>Example request</span>
-            <button class="copy-btn" onclick="copyText(this)">Copy</button>
-          </div>
-          <pre class="copy-content">GET /api/badge/YOUR_GITHUB_USERNAME</pre>
-        </div>
+      document.getElementById("baseUrlText").textContent = baseUrl;
 
-        <p style="color: var(--muted); font-size: 13px; margin-top: 18px;">
-          The API automatically creates a profile record if one does not
-          already exist, increments its view count, and returns an SVG badge.
-        </p>
-      </div>
-    </section>
+      // Display a live example badge
+      document.getElementById("badgePreview").src =
+        `${baseUrl}/api/badge/demo-user?label=VISITORS&color=green&style=flat`;
 
-  </main>
+      // Copy code examples
+      async function copyText(button) {
+        const code = button
+          .closest(".code-block")
+          .querySelector(".copy-content")
+          .textContent.trim();
 
-  <!-- Footer -->
-  <footer>
-    <div class="container">
-      <p>
-        Built by
-        <a href="https://github.com/mwanzia-simon"
-           target="_blank" rel="noopener noreferrer">Simon Makau</a>
-        ·
-        <a href="https://github.com/mwanzia-simon/GITHUB-BADGE-GENERATOR"
-           target="_blank" rel="noopener noreferrer">View source code on GitHub</a>
-      </p>
+        try {
+          await navigator.clipboard.writeText(code);
+          button.textContent = "Copied!";
 
-      <p style="margin-top: 7px;">
-        GitHub Badge Generator · API Documentation
-      </p>
-    </div>
-  </footer>
-
-  <script>
-    // Automatically detect the deployed API's base URL
-    const baseUrl = window.location.origin;
-
-    document.getElementById("baseUrlText").textContent = baseUrl;
-
-    // Display a live example badge
-    document.getElementById("badgePreview").src =
-      `${baseUrl}/api/badge/demo-user?label=VISITORS&color=green&style=flat`;
-
-    // Copy code examples
-    async function copyText(button) {
-      const code = button.closest(".code-block")
-        .querySelector(".copy-content").textContent.trim();
-
-      try {
-        await navigator.clipboard.writeText(code);
-        button.textContent = "Copied!";
-
-        setTimeout(() => {
-          button.textContent = "Copy";
-        }, 1500);
-      } catch (error) {
-        button.textContent = "Copy failed";
+          setTimeout(() => {
+            button.textContent = "Copy";
+          }, 1500);
+        } catch (error) {
+          button.textContent = "Copy failed";
+        }
       }
-    }
-  </script>
-
-</body>
+    </script>
+  </body>
 </html>
