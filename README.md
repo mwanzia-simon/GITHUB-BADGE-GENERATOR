@@ -2,6 +2,8 @@
 
 A customizable GitHub profile badge generator built with **Node.js, Express, and MongoDB**. It generates dynamic SVG badges that track profile views and display the counter directly in your GitHub README.
 
+![banner_image](./docs/images/banner.png)
+
 Users can customize their badges using URL query parameters, including the label, counter color, and badge style.
 
 ## Features
