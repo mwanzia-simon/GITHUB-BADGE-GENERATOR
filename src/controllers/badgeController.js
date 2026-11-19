@@ -13,7 +13,7 @@ export const getProfileBadge = async (req, res) => {
     const result = await ProfileViews.findOneAndUpdate(
       { username },
       { $inc: { views: 1 } },
-      { upsert: true, new: true },
+      { upsert: true, returnDocument: "after" },
     );
 
     const svg = generateBadge(label, result.views, color, style);
