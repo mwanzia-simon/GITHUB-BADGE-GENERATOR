@@ -1,3 +1,12 @@
+const colors = {
+  blue: "#0969da",
+  green: "#2da44e",
+  red: "#cf222e",
+  orange: "#e16f24",
+  purple: "#8250df",
+  gray: "#57606a",
+};
+
 function escapeXml(value) {
   return String(value)
     .replaceAll("&", "&amp;")
