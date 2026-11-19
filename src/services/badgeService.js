@@ -29,7 +29,7 @@ export function generateBadge(label, message, color, style) {
 
   const background =
     selectedStyle === "flat" ? selectedColor : "url(#badgeColor)";
-    
+
   const svg_string = `
     
 <svg xmlns="http://www.w3.org/2000/svg"
@@ -51,7 +51,7 @@ export function generateBadge(label, message, color, style) {
 
   <!-- Counter background -->
   <path d="M125 0 H205 Q210 0 210 5 V27 Q210 32 205 32 H125 Z"
-        fill="url(#badgeColor)"/>
+        fill="${background}"/>
 
   <!-- Label text -->
   <text x="62.5" y="20.5"
