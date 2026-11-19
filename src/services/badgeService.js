@@ -1,4 +1,4 @@
-function generateBage(label,message){
+export function generateBage(label,message){
 
 
 }
