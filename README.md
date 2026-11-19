@@ -168,14 +168,14 @@ Another example:
 You can display your generated badge in any GitHub README using Markdown:
 
 ```markdown
-![Profile Views](https://YOUR_DEPLOYED_DOMAIN/api/badge/YOUR_GITHUB_USERNAME)
+![Profile Views](https://github-badge-generator.onrender.com/api/badge/YOUR_GITHUB_USERNAME)
 ```
 
 You can also use HTML:
 
 ```html
 <img
-  src="https://YOUR_DEPLOYED_DOMAIN/api/badge/YOUR_GITHUB_USERNAME?color=blue"
+  src="https://github-badge-generator.onrender.com/api/badge/YOUR_GITHUB_USERNAME?color=blue"
   alt="Profile Views"
 />
 ```
