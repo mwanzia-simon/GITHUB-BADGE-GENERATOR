@@ -15,10 +15,6 @@ const __dirname = path.dirname(__filename);
 
 app.use(express.static(path.join(__dirname, "../public")));
 
-app.get("/", (req, res) => {
-  res.send("Server is running!");
-});
-
 // Routes
 app.use("/api/stats", statsRouter);
 app.use("/api/badge", badgeRouter);
