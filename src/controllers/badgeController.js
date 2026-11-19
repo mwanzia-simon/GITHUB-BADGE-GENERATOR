@@ -4,7 +4,7 @@ import { generateBadge } from "../services/badgeService.js";
 export const getProfileBadge = async (req, res) => {
   try {
     const { username } = req.params;
-    const { label = "PROFILE VIEWS", color = "blue" } = req.query;
+    const { label = "PROFILE VIEWS", color = "blue", style = "" } = req.query;
 
     const result = await ProfileViews.findOneAndUpdate(
       { username },
@@ -12,7 +12,7 @@ export const getProfileBadge = async (req, res) => {
       { upsert: true, new: true },
     );
 
-    const svg = generateBadge(label, result.views,color);
+    const svg = generateBadge(label, result.views, color, style);
     res.setHeader("Content-Type", "image/svg+xml");
     return res.status(200).send(svg);
   } catch (error) {

@@ -16,7 +16,7 @@ function escapeXml(value) {
     .replaceAll("'", "&apos;");
 }
 
-export function generateBadge(label, message, color) {
+export function generateBadge(label, message, color,style) {
   const safeLabel = escapeXml(label);
   const safeMessage = escapeXml(message);
 
@@ -32,7 +32,7 @@ export function generateBadge(label, message, color) {
      aria-label="${safeLabel}: ${safeMessage}">
 
   <defs>
-    <linearGradient id="blue" x1="0" y1="0" x2="0" y2="1">
+    <linearGradient id="badgeColor" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0%" stop-color="${selectedColor}"/>
       <stop offset="100%" stop-color="${selectedColor}"/>
     </linearGradient>
@@ -43,11 +43,11 @@ export function generateBadge(label, message, color) {
 
   <!-- Counter background -->
   <path d="M125 0 H205 Q210 0 210 5 V27 Q210 32 205 32 H125 Z"
-        fill="url(#blue)"/>
+        fill="url(#badgeColor)"/>
 
   <!-- Label text -->
   <text x="62.5" y="20.5"
-        fill="url(#badgeColor)"
+        fill="#ffffff"
         font-family="Arial, sans-serif"
         font-size="10"
         font-weight="600"
@@ -58,7 +58,7 @@ export function generateBadge(label, message, color) {
 
   <!-- Counter text -->
   <text x="167.5" y="20.5"
-        fill="url(#badgeColor)"
+        fill="#ffffff"
         font-family="Arial, sans-serif"
         font-size="12"
         font-weight="700"
