@@ -74,13 +74,5 @@ export function generateBadge(label, message, color, style) {
 
 </svg>
 `;
-
-  console.log({
-    color,
-    style,
-    selectedStyle,
-    selectedColor,
-    background,
-  });
   return svg_string;
 }
