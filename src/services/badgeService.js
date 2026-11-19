@@ -1,4 +1,4 @@
-export function generateBage(label, message) {
+export function generateBadge(label, message) {
   const svg_string = `
     
 <svg xmlns="http://www.w3.org/2000/svg"
