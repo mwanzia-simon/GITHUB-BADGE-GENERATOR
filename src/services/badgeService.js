@@ -7,7 +7,7 @@ function escapeXml(value) {
     .replaceAll("'", "&apos;");
 }
 
-export function generateBadge(label, message) {
+export function generateBadge(label, message, color) {
   const safeLabel = escapeXml(label);
   const safeMessage = escapeXml(message);
 
