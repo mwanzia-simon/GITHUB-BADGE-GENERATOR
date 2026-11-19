@@ -1,7 +1,7 @@
 {
   "name": "github-badge-generator",
   "version": "1.0.0",
-  "description": "",
+  "description": "A customizable GitHub profile badge generator with dynamic SVG generation and profile view tracking.",
   "main": "./src/server.js",
   "scripts": {
     "start": "node ./src/server.js",
@@ -12,7 +12,7 @@
     "url": "git+https://github.com/mwanzia-simon/GITHUB-BADGE-GENERATOR.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "simon makau",
   "license": "ISC",
   "type": "module",
   "bugs": {
