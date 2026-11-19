@@ -126,7 +126,7 @@ The following colors are currently supported:
 | Purple | `?color=purple` | ![Purple badge](docs/images/purple-badge.png) |
 | Gray | `?color=gray` | ![Gray badge](docs/images/gray-badge.png) |
 
-*The image paths above are placeholders. Add your actual badge screenshots to the corresponding files.*
+
 
 ### Available Styles
 
@@ -180,7 +180,6 @@ You can also use HTML:
 />
 ```
 
-Replace `YOUR_DEPLOYED_DOMAIN` with your deployed API URL and `YOUR_GITHUB_USERNAME` with your GitHub username.
 
 ## Profile Statistics Endpoint
 
@@ -214,8 +213,6 @@ Add screenshots of your generated badges here.
 | Gray | `docs/images/gray-badge.png` |
 
 ### API Response
-
-Add a screenshot of the generated SVG displayed in your browser.
 
 ![API Badge Preview](docs/images/api-preview.png)
 
