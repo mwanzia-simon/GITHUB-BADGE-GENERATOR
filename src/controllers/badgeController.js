@@ -4,7 +4,11 @@ import { generateBadge } from "../services/badgeService.js";
 export const getProfileBadge = async (req, res) => {
   try {
     const { username } = req.params;
-    const { label = "PROFILE VIEWS", color = "blue", style = "" } = req.query;
+    const {
+      label = "PROFILE VIEWS",
+      color = "blue",
+      style = "gradient",
+    } = req.query;
 
     const result = await ProfileViews.findOneAndUpdate(
       { username },
