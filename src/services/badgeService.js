@@ -1,4 +1,16 @@
+function escapeXml(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&apos;");
+}
+
 export function generateBadge(label, message) {
+  const safeLabel = escapeXml(label);
+  const safeMessage = escapeXml(message);
+
   const svg_string = `
     
 <svg xmlns="http://www.w3.org/2000/svg"
