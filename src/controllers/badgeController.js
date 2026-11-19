@@ -18,6 +18,12 @@ export const getProfileBadge = async (req, res) => {
 
     const svg = generateBadge(label, result.views, color, style);
     res.setHeader("Content-Type", "image/svg+xml");
+    res.setHeader(
+      "Cache-Control",
+      "no-store, no-cache, must-revalidate, proxy-revalidate",
+    );
+    res.setHeader("Pragma", "no-cache");
+    res.setHeader("Expires", "0");
     return res.status(200).send(svg);
   } catch (error) {
     res
