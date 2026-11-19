@@ -47,8 +47,8 @@ src/
 ### 1. Clone the repository
 
 ```bash
-git clone YOUR_REPOSITORY_URL
-cd github-dynamic-badge-generator
+git clone https://github.com/mwanzia-simon/GITHUB-BADGE-GENERATOR
+cd GITHUB-BADGE-GENERATOR
 ```
 
 ### 2. Install dependencies
