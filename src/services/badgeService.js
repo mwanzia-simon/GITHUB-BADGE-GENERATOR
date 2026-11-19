@@ -47,7 +47,7 @@ export function generateBadge(label, message, color) {
 
   <!-- Label text -->
   <text x="62.5" y="20.5"
-        fill="#ffffff"
+        fill="url(#badgeColor)"
         font-family="Arial, sans-serif"
         font-size="10"
         font-weight="600"
@@ -58,7 +58,7 @@ export function generateBadge(label, message, color) {
 
   <!-- Counter text -->
   <text x="167.5" y="20.5"
-        fill="#ffffff"
+        fill="url(#badgeColor)"
         font-family="Arial, sans-serif"
         font-size="12"
         font-weight="700"
