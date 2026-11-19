@@ -18,7 +18,7 @@ export function generateBadge(label, message) {
      height="32"
      viewBox="0 0 210 32"
      role="img"
-     aria-label="${label}: ${message}">
+     aria-label="${safeLabel}: ${safeMessage}">
 
   <defs>
     <linearGradient id="blue" x1="0" y1="0" x2="0" y2="1">
@@ -42,7 +42,7 @@ export function generateBadge(label, message) {
         font-weight="600"
         letter-spacing="0.5"
         text-anchor="middle">
-    ${label}
+    ${safeLabel}
   </text>
 
   <!-- Counter text -->
@@ -52,7 +52,7 @@ export function generateBadge(label, message) {
         font-size="12"
         font-weight="700"
         text-anchor="middle">
-   ${message}
+   ${safeMessage}
   </text>
 
 </svg>
