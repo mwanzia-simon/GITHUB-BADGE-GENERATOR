@@ -16,15 +16,20 @@ function escapeXml(value) {
     .replaceAll("'", "&apos;");
 }
 
-export function generateBadge(label, message, color,style) {
+export function generateBadge(label, message, color, style) {
   const safeLabel = escapeXml(label);
   const safeMessage = escapeXml(message);
 
   const selectedColor = colors[color] || colors.blue;
+
+  // Validating the style passed
   const selectedStyle = ["flat", "gradient"].includes(style)
     ? style
     : "gradient";
 
+  const background =
+    selectedStyle === "flat" ? selectedColor : "url(#badgeColor)";
+    
   const svg_string = `
     
 <svg xmlns="http://www.w3.org/2000/svg"
