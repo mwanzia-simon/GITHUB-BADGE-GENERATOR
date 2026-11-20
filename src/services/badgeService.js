@@ -70,7 +70,7 @@ export function generateBadge(label, message, color, style) {
         font-family="Arial, sans-serif"
         font-size="12"
         font-weight="700"
-        text-anchor="middle">${safeMessage.toLocaleString()}</text>
+        text-anchor="middle">${safeMessage.toLocaleString("en-US")}</text>
 
 </svg>
 `;
