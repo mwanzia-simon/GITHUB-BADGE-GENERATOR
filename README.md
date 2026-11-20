@@ -203,8 +203,6 @@ This endpoint increments the counter and returns the updated statistics as JSON.
 
 ### Badge Examples
 
-Add screenshots of your generated badges here.
-
 | Badge | Preview |
 |---|---|
 | Blue | `docs/images/blue-badge.png` |
@@ -224,7 +222,6 @@ Add screenshots of your generated badges here.
 - Additional badge themes and styles.
 - More advanced SVG designs.
 - Badge caching and performance optimization.
-- Public deployment.
 - Additional statistics and analytics.
 
 ## Author
