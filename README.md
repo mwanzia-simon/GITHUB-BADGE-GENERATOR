@@ -1,5 +1,10 @@
 # GitHub Badge Generator
-
+<p>
+<img
+  src="https://github-badge-generator-psi.vercel.app/api/badge/demo-github-user?color=blue"
+  alt="Profile Views"
+/>
+</p>
 A customizable GitHub profile badge generator built with **Node.js, Express, and MongoDB**. It generates dynamic SVG badges that track profile views and display the counter directly in your GitHub README.
 
 ![banner_image](./docs/images/banner.png)
