@@ -229,9 +229,6 @@ This endpoint increments the counter and returns the updated statistics as JSON.
 - Badge caching and performance optimization.
 - Additional statistics and analytics.
 
-
-
-
 ---
 
 *Built as a learning project to explore backend development, REST APIs, MongoDB, and dynamic SVG generation.*
