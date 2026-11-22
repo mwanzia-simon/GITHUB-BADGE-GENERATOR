@@ -231,7 +231,6 @@ This endpoint increments the counter and returns the updated statistics as JSON.
 
 
 
-GitHub: [mwanzia-simon](https://github.com/mwanzia-simon)
 
 ---
 
