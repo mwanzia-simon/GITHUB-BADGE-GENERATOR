@@ -229,7 +229,6 @@ This endpoint increments the counter and returns the updated statistics as JSON.
 - Badge caching and performance optimization.
 - Additional statistics and analytics.
 
-## Author
 
 **Simon Makau**
 
