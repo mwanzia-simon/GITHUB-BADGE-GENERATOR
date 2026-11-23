@@ -4,11 +4,7 @@ export const trackProfileViews = async (req, res) => {
   try {
     const { username } = req.params;
 
-    const result = await ProfileViews.findOneAndUpdate(
-      { username },
-      { $inc: { views: 1 } },
-      { upsert: true, returnDocument: "after" },
-    );
+    const result = await ProfileViews.findOne({ username });
 
     return res.status(200).json({ success: true, views: result.views });
   } catch (error) {
