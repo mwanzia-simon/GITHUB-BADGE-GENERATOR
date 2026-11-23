@@ -2,7 +2,7 @@ import rateLimit from "../config/upstash.js";
 
 const rateLimiter = async (req, res, next) => {
   try {
-    const key = `badge-generator:${key}`;
+    const key = `badge-generator:${req.ip}`;
 
     const { success } = await rateLimit.limit(key);
     if (!success) {
