@@ -5,6 +5,7 @@ import "dotenv/config";
 import { connectDB } from "./config/db.js";
 import statsRouter from "./routes/statsRouter.js";
 import badgeRouter from "./routes/badgeRouter.js";
+import rateLimiter from "./middleware/rateLimiter.js";
 
 const app = express();
 app.set("etag", false);
@@ -13,7 +14,9 @@ const PORT = process.env.PORT || 5500;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// middleware
 app.use(express.static(path.join(__dirname, "../public")));
+app.use(rateLimiter);
 
 // Routes
 app.use("/api/stats", statsRouter);
