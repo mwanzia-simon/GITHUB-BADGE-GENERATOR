@@ -22,6 +22,8 @@ Users can customize their badges using URL query parameters, including the label
 - Multiple badge styles.
 - SVG responses that can be embedded directly into GitHub README files.
 - Atomic view increments using MongoDB's `$inc` operator.
+- API rate limiting to prevent excessive requests to backend endpoints.
+- IP-based rate limiting to enforce request limits independently for each client.
 
 ## Tech Stack
 
