@@ -113,6 +113,32 @@ The endpoint:
 
 Each request to the badge endpoint increments the counter.
 
+## API Protection
+
+The API endpoints are protected using **rate limiting** to prevent excessive requests and reduce potential abuse.
+
+The rate limiter uses **Upstash** to manage request limits and tracks requests using the client's IP address.
+
+### How It Works
+
+1. Each incoming API request passes through the rate-limiting middleware.
+2. The client's IP address is used as the rate-limit key.
+3. Upstash tracks the number of requests associated with that IP address.
+4. If the request limit is exceeded, the server rejects further requests.
+
+When a client exceeds the allowed request limit, the API responds with:
+
+```json
+{
+  "success": false,
+  "message": "Too many requests. Please try again later."
+}
+```
+
+The server returns HTTP status code `429 (Too Many Requests)`.
+
+Static assets such as CSS, JavaScript, and images are served separately and do not consume the API rate limit.
+
 ### Customization Parameters
 
 The badge supports the following query parameters:
