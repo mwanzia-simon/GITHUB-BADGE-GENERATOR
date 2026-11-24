@@ -31,6 +31,7 @@ Users can customize their badges using URL query parameters, including the label
 - Express.js
 - MongoDB
 - Mongoose
+- Upstash Redis
 - SVG
 
 ## Project Structure
